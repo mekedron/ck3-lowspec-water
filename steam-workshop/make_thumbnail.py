@@ -4,7 +4,7 @@ generator (two halves, two badges)."""
 from PIL import Image, ImageDraw, ImageFont
 SRC = "/home/nikita/Pictures/Screenshots/Screenshot_20260913_010758.png"
 OUT = "/home/nikita/Projects/ck3-lowspec-water/thumbnail.png"
-S = 1280
+S = 1024
 im = Image.open(SRC).convert("RGB").crop((1300, 120, 2620, 1440)).resize((S, S), Image.LANCZOS)
 d = ImageDraw.Draw(im, "RGBA")
 big = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 62)

@@ -12,8 +12,7 @@ catch a wrong texture register or an engine-side include problem; those need a g
 start (see tools/check_log.sh).
 
 usage: compile_check.py --dxc <dxc dir> [--cache <ps_5_0 dir>] [--game <game root>] [-k]
-SHARP_BASE=<older Sharp Terrain pdxterrain.shader> picks the cache entry compiled from that
-version as the base for the low spec terrain target (git show HEAD~1:gfx/FX/pdxterrain.shader > /tmp/x).
+
 """
 import argparse, os, re, shutil, subprocess, sys, tempfile
 
@@ -42,16 +41,16 @@ FILES = {
     'jomini/jomini_colormap.fxh': 'BilinearColorSampleAtOffset',
     'bordercolor.fxh': 'GetBorderColorAndBlendGameLerp',
 }
-# (shader file, effect, low spec?, base) base: 'vanilla' or path of an older mod file
+# (shader file, effect, low spec?, base) base: 'vanilla' or path of an older mod file.
+# MAIN_MAP: effects the mod rewires to a new MainCode - the vanilla main block found in
+# the cache entry is replaced by the mod's block of the mapped name.
 TARGETS = [
     ('pdxterrain.shader', 'PdxTerrain', False, 'vanilla'),
-    ('pdxterrain.shader', 'PdxTerrainLowSpec', True, os.environ.get('SHARP_BASE', HOME + '/Projects/ck3-lowspec-terrain-fix/gfx/FX/pdxterrain.shader')),
+    ('pdxterrain.shader', 'PdxTerrainLowSpec', True, 'vanilla'),
     ('tree.shader', 'tree', False, 'vanilla'),
     ('tree.shader', 'tree_lod', False, 'vanilla'),
     ('tree.shader', 'tree', True, 'vanilla'),
     ('pdxwater.shader', 'water', False, 'vanilla'),
-    ('pdxwater.shader', 'waterLowSpec', True, 'vanilla'),
-    ('pdxwater.shader', 'lake', True, 'vanilla'),
     ('pdxmesh.shader', 'standard_atlas', False, 'vanilla'),
     ('pdxmesh.shader', 'standard_usercolor', False, 'vanilla'),
     ('pdxmesh.shader', 'standard_winter', False, 'vanilla'),
@@ -61,11 +60,11 @@ TARGETS = [
     ('river_surface.shader', 'river_surface', False, 'vanilla'),
     ('mapname.shader', 'mapname', False, 'vanilla'),
 ]
+MAIN_MAP = {('pdxterrain.shader', 'PdxTerrainLowSpec'): {'PixelShaderLowSpec': 'PixelShaderLowSpecSharp'}}
+
 VARIANTS = [
     ('default', []),
     ('snow_material', ['-DTERRAINOPT_SNOW_MATERIAL']),
-] if os.path.exists(os.path.join(MOD, 'gfx/FX/sharp_terrain_options.fxh')) else [
-    ('default', []),
 ] if not os.path.exists(os.path.join(MOD, 'gfx/FX/fastadv.fxh')) else [
     ('default', []),
     ('disable_all', ['-DADVOPT_DISABLE_ALL']),
@@ -83,7 +82,7 @@ MOD_MARKERS = ('ADVOPT_', 'TREEOPT_', 'TERRAINOPT_', 'CalcPrimaryProvinceOverlay
 def read(p):
     return open(p, 'rb').read().decode('utf-8', 'replace')
 
-def find_entry(cache, shader, effect, lowspec, want_marker):
+def find_entry(cache, shader, effect, lowspec, want_marker, want_block=None):
     for name in sorted(os.listdir(cache)):
         if not name.endswith('.scache'):
             continue
@@ -100,8 +99,15 @@ def find_entry(cache, shader, effect, lowspec, want_marker):
             continue
         if want_marker and want_marker not in text:
             continue
+        if want_block and not contains_lines(text, want_block):
+            continue
         return p
     return None
+
+def contains_lines(text, block):
+    nl = [l.strip() for l in text.split('\n')]
+    pat = [l.strip() for l in block][:40]
+    return any(nl[k:k+len(pat)] == pat for k in range(len(nl) - len(pat) + 1))
 
 def switch_block():
     out = ''
@@ -142,12 +148,23 @@ def code_blocks(text):
         blocks[key] = body
     return blocks
 
-def apply_blocks(target, vanilla_path, mod_path):
+def apply_blocks(target, vanilla_path, mod_path, main_map=None):
     """Replace every vanilla Code block found in the expanded file with the mod's
-    block of the same key. Returns a list of notes."""
+    block of the same key (or of the mapped main name). Returns a list of notes."""
     lines = open(target, 'rb').read().decode('utf-8', 'replace').split('\n')
-    norm = lambda l: l.strip()
+    import re as _re
+    sig = _re.compile(r'^\w[\w<>, ]* main\s*\(')
+    def norm(l):
+        l = l.strip()
+        # the engine replaces the PDX_MAIN line of a MainCode block with the real
+        # entry point signature; treat both spellings as the same line
+        if l.startswith('PDX_MAIN') or sig.match(l):
+            return 'PDX_MAIN'
+        return l
     van = code_blocks(read(vanilla_path)); mod = code_blocks(read(mod_path))
+    for old_main, new_main in (main_map or {}).items():
+        if ('main', new_main) in mod:
+            mod[('main', old_main)] = mod[('main', new_main)]
     notes = []
     for key, vb in van.items():
         if key not in mod:
@@ -160,7 +177,11 @@ def apply_blocks(target, vanilla_path, mod_path):
         if not hits:
             continue  # this block is not part of the expanded entry (other MainCode)
         k = hits[0]
-        lines[k:k+len(pat)] = mod[key]
+        signature = [l for l in lines[k:k+len(pat)] if norm(l) == 'PDX_MAIN']
+        new_block = list(mod[key])
+        if signature:
+            new_block = [signature[0] if norm(l) == 'PDX_MAIN' else l for l in new_block]
+        lines[k:k+len(pat)] = new_block
     open(target, 'wb').write('\n'.join(lines).encode('utf-8'))
     return notes
 
@@ -179,7 +200,14 @@ def main():
         if not os.path.exists(os.path.join(MOD, 'gfx/FX', shader)):
             continue
         marker = None if base == 'vanilla' else 'TERRAINOPT_SKIP_HIDDEN_TERRAIN'
-        entry = find_entry(a.cache, shader, effect, lowspec, marker)
+        # a non-vanilla base must match the entry it is applied to: require the base
+        # file's main block for this effect to be present in the expanded text
+        want_block = None
+        if base != 'vanilla':
+            bb = code_blocks(read(base))
+            mains = [v for k, v in bb.items() if k[0] == 'main' and 'LowSpecSharp' in k[1]]
+            want_block = mains[0] if mains else None
+        entry = find_entry(a.cache, shader, effect, lowspec, marker, want_block)
         tag = f'{effect}{"[lowspec]" if lowspec else ""}'
         if not entry:
             print(f'{tag:34} no cache entry, skipped')
@@ -205,7 +233,7 @@ def main():
             else:
                 van = os.path.join(a.game, 'game/gfx/FX', f)
             modf = os.path.join(MOD, 'gfx/FX', f)
-            for msg in apply_blocks(dst, van, modf):
+            for msg in apply_blocks(dst, van, modf, MAIN_MAP.get((shader, effect)) if f == shader else None):
                 rejected.append(f'{f}: {msg}')
         src = read(dst)
         open(dst, 'w').write(switch_block() + '\n' + src)
