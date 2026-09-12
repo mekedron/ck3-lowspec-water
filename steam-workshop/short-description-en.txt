@@ -1,0 +1,1 @@
+With Advanced Shaders off, CK3 draws the sea flat. This mod gives the low spec ocean and lakes waves, a sun highlight and sky reflection for fewer texture reads than the flat water spent. Ironman-safe.

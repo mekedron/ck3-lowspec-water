@@ -1,0 +1,32 @@
+BETTER WATER WITHOUT ADVANCED SHADERS
+
+With the Advanced Shaders graphics option turned off, the sea in CK3 is a flat colour map: no waves, no light, no reflection. This mod gives the low spec map shaded water — two layers of animated waves, the sun highlight, the sky reflected in the water and a deep/shallow colour shift — while keeping the option off, and for fewer texture reads than the flat water spent.
+
+Pairs with Sharp Terrain Without Advanced Shaders (https://steamcommunity.com/sharedfiles/filedetails/?id=3800159542) and its Real Snow add-on; independent of both.
+
+THE CAUSE
+
+With Advanced Shaders off the ocean is drawn by Effect waterLowSpec in gfx/FX/pdxwater.shader: the water colour map plus a shore fade, and the shore fade alone reads the heightmap nine times. Nothing else. Lakes are the opposite: they have no low spec effect at all and always run the full water shader, about 50 texture reads per pixel, even on a low spec map.
+
+THE FIX
+
+One new function, CalcWaterCheap, built from the parts of the vanilla water shader that are cheap: the first two wave normal layers, the sun highlight, the sky cube map through the Fresnel term, the deep/shallow colour and the shore fade from a single height read. Left out: flow maps, foam, approaching shore waves, refraction, the third wave layer, the shadow map and the cloud mask. Six texture reads per pixel against eleven for the flat vanilla water; lakes drop from about fifty to six.
+
+NOTES
+
+- Keep Advanced Shaders off. With it on the game uses the high spec water and this mod does nothing at all
+- Ocean and lakes are touched; rivers already use the full water shader in low spec and are left alone
+- Two switches in gfx/FX/better_water_options.fxh, one for the ocean and one for lakes
+- Graphics-only: no gameplay, script or history files, so ironman and achievements are unaffected
+- Safe to add or remove at any time, including mid-campaign
+- The first map load after enabling is slower: the modified shaders are compiled and cached from scratch
+- Built for CK3 1.19.x. Shader overrides replace the vanilla files wholesale, so a patch that reworks the water shader will need an update here
+
+COMPATIBILITY
+
+Replaces gfx/FX/pdxwater.shader and gfx/FX/jomini/jomini_water_default.fxh in full. Conflicts only with mods that edit those same files, mostly water or map graphics overhauls.
+
+SOURCE
+
+Full source on GitHub, including the exact changes against the vanilla shaders and an install script for Linux / Proton users:
+github.com/mekedron/ck3-lowspec-water (https://github.com/mekedron/ck3-lowspec-water)
