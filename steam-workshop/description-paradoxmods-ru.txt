@@ -28,7 +28,9 @@ Better Water Without Advanced Shaders
 
 Полностью заменяет gfx/FX/pdxwater.shader и gfx/FX/jomini/jomini_water_default.fxh. Конфликтует только с модами, правящими эти же файлы, в основном с переработками воды и графики карты.
 
-На карте A Game of Thrones ставьте ниже этого мода STEAM_LINK_AGOT_PATCH: у AGOT свой шейдер воды, так что сам по себе этот мод под AGOT либо ничего не делает, либо теряет атмосферу и скайбокс AGOT на воде.
+A GAME OF THRONES
+
+На карте A Game of Thrones ставьте ниже этого мода https://steamcommunity.com/sharedfiles/filedetails/?id=3800643356: у AGOT свой шейдер воды, так что сам по себе этот мод под AGOT либо ничего не делает, либо теряет атмосферу и скайбокс AGOT на воде.
 
 ИСХОДНИКИ
 
