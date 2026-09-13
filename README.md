@@ -91,7 +91,7 @@ full; conflicts only with mods that edit those files, mostly water or map graphi
 overhauls. Fast Advanced Shaders already contains this water - do not combine the two.
 
 On the map of **A Game of Thrones** use
-[Sharp Terrain & Better Water: A Game of Thrones Patch](https://github.com/mekedron/ck3-lowspec-agot-patch) below this mod:
+[AGOT Patch for Sharp Terrain & Better Water](https://github.com/mekedron/ck3-lowspec-agot-patch) below this mod:
 AGOT ships its own `pdxwater.shader` (atmospheric fog on the water, a skybox cut-out
 beyond the map edge), so on its own this mod either does nothing under AGOT or
 loses those. The patch is AGOT's water shader with `CalcWaterCheap` applied on top;

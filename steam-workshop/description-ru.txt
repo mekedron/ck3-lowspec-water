@@ -30,7 +30,7 @@
 
 Полностью заменяет gfx/FX/pdxwater.shader и gfx/FX/jomini/jomini_water_default.fxh. Конфликтует только с модами, правящими эти же файлы, в основном с переработками воды и графики карты.
 
-На карте [b]A Game of Thrones[/b] ставьте ниже этого мода [url=STEAM_LINK_AGOT_PATCH]Sharp Terrain & Better Water: A Game of Thrones Patch[/url]: у AGOT свой шейдер воды, так что сам по себе этот мод под AGOT либо ничего не делает, либо теряет атмосферу и скайбокс AGOT на воде.
+На карте [b]A Game of Thrones[/b] ставьте ниже этого мода [url=STEAM_LINK_AGOT_PATCH]AGOT Patch for Sharp Terrain & Better Water[/url]: у AGOT свой шейдер воды, так что сам по себе этот мод под AGOT либо ничего не делает, либо теряет атмосферу и скайбокс AGOT на воде.
 
 [h2]Исходники[/h2]
 

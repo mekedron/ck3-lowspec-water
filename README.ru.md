@@ -91,7 +91,7 @@ cubemap 1) против 11 у ванильного low-spec, плюс матем
 графики карты. Fast Advanced Shaders уже содержит эту воду, вместе их не ставят.
 
 На карте **A Game of Thrones** ставьте ниже этого мода
-[Sharp Terrain & Better Water: A Game of Thrones Patch](https://github.com/mekedron/ck3-lowspec-agot-patch): у AGOT свой
+[AGOT Patch for Sharp Terrain & Better Water](https://github.com/mekedron/ck3-lowspec-agot-patch): у AGOT свой
 `pdxwater.shader` (атмосферный туман на воде, вырез под скайбокс за краем карты), так
 что сам по себе этот мод под AGOT либо ничего не делает, либо теряет их. Патч — это
 шейдер воды AGOT с наложенным `CalcWaterCheap`; `jomini_water_default.fxh` и файл опций
