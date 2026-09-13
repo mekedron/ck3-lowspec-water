@@ -1,10 +1,10 @@
-BETTER WATER WITHOUT ADVANCED SHADERS
+Better Water Without Advanced Shaders
 
-Гайд: CK3 на калькуляторе: стабильные 60 FPS, и карта не мыло (https://steamcommunity.com/sharedfiles/filedetails/?id=3800254441) — полный список настроек, под который сделаны эти моды, на ноутбучной видеокарте с 4 ГБ при 5120x1440.
+Гайд: https://steamcommunity.com/sharedfiles/filedetails/?id=3800254441 — полный список настроек, под который сделаны эти моды, на ноутбучной видеокарте с 4 ГБ при 5120x1440.
 
 С выключенной настройкой «Дополнительные эффекты шейдеров» море в CK3 — плоская карта цвета: ни волн, ни света, ни отражений. Этот мод даёт low-spec карте освещённую воду — два слоя бегущих волн, солнечный блик, отражение неба в воде и смену цвета глубокая/мелкая — при по-прежнему выключенной настройке и за меньшее число выборок текстур, чем тратила плоская вода.
 
-Сочетается с Sharp Terrain Without Advanced Shaders (https://steamcommunity.com/sharedfiles/filedetails/?id=3800159542) и его дополнением Real Snow; не зависит ни от того, ни от другого.
+Сочетается с https://steamcommunity.com/sharedfiles/filedetails/?id=3800159542 и его дополнением Real Snow; не зависит ни от того, ни от другого.
 
 ПРИЧИНА
 
@@ -28,7 +28,9 @@ BETTER WATER WITHOUT ADVANCED SHADERS
 
 Полностью заменяет gfx/FX/pdxwater.shader и gfx/FX/jomini/jomini_water_default.fxh. Конфликтует только с модами, правящими эти же файлы, в основном с переработками воды и графики карты.
 
+На карте A Game of Thrones ставьте ниже этого мода STEAM_LINK_AGOT_PATCH: у AGOT свой шейдер воды, так что сам по себе этот мод под AGOT либо ничего не делает, либо теряет атмосферу и скайбокс AGOT на воде.
+
 ИСХОДНИКИ
 
 Полный исходный код на GitHub, включая точные изменения относительно ванильных шейдеров и скрипт установки для Linux / Proton:
-github.com/mekedron/ck3-lowspec-water (https://github.com/mekedron/ck3-lowspec-water)
+https://github.com/mekedron/ck3-lowspec-water

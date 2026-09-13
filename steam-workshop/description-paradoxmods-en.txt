@@ -1,10 +1,10 @@
-BETTER WATER WITHOUT ADVANCED SHADERS
+Better Water Without Advanced Shaders
 
-Guide: CK3 on a potato PC: a locked 60 FPS, and the map still looks sharp (https://steamcommunity.com/sharedfiles/filedetails/?id=3800254441) — the full settings list these mods are built around, on a 4 GB laptop GPU at 5120x1440.
+Guide: https://steamcommunity.com/sharedfiles/filedetails/?id=3800254441 — the full settings list these mods are built around, on a 4 GB laptop GPU at 5120x1440.
 
 With the Advanced Shaders graphics option turned off, the sea in CK3 is a flat colour map: no waves, no light, no reflection. This mod gives the low spec map shaded water — two layers of animated waves, the sun highlight, the sky reflected in the water and a deep/shallow colour shift — while keeping the option off, and for fewer texture reads than the flat water spent.
 
-Pairs with Sharp Terrain Without Advanced Shaders (https://steamcommunity.com/sharedfiles/filedetails/?id=3800159542) and its Real Snow add-on; independent of both.
+Pairs with https://steamcommunity.com/sharedfiles/filedetails/?id=3800159542 and its Real Snow add-on; independent of both.
 
 THE CAUSE
 
@@ -28,7 +28,9 @@ COMPATIBILITY
 
 Replaces gfx/FX/pdxwater.shader and gfx/FX/jomini/jomini_water_default.fxh in full. Conflicts only with mods that edit those same files, mostly water or map graphics overhauls.
 
+On the map of A Game of Thrones use STEAM_LINK_AGOT_PATCH below this mod: AGOT ships its own water shader, so on its own this mod either does nothing under AGOT or loses AGOT's atmosphere and skybox on the water.
+
 SOURCE
 
 Full source on GitHub, including the exact changes against the vanilla shaders and an install script for Linux / Proton users:
-github.com/mekedron/ck3-lowspec-water (https://github.com/mekedron/ck3-lowspec-water)
+https://github.com/mekedron/ck3-lowspec-water

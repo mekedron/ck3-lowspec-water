@@ -30,6 +30,8 @@ One new function, CalcWaterCheap, built from the parts of the vanilla water shad
 
 Replaces gfx/FX/pdxwater.shader and gfx/FX/jomini/jomini_water_default.fxh in full. Conflicts only with mods that edit those same files, mostly water or map graphics overhauls.
 
+On the map of [b]A Game of Thrones[/b] use [url=STEAM_LINK_AGOT_PATCH]Sharp Terrain & Better Water: A Game of Thrones Patch[/url] below this mod: AGOT ships its own water shader, so on its own this mod either does nothing under AGOT or loses AGOT's atmosphere and skybox on the water.
+
 [h2]Source[/h2]
 
 Full source on GitHub, including the exact changes against the vanilla shaders and an install script for Linux / Proton users:
