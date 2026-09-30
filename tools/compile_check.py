@@ -79,13 +79,14 @@ VARIANTS = [
     ('diag_terrain', ['-DADVOPT_DIAG_TERRAIN_NO_OVERLAY', '-DADVOPT_DIAG_TERRAIN_NO_DETAILS', '-DADVOPT_DIAG_TERRAIN_NO_SNOW',
                       '-DADVOPT_DIAG_TERRAIN_NO_EFFECTS', '-DADVOPT_DIAG_TERRAIN_NO_LIGHTING', '-DADVOPT_DIAG_TERRAIN_NO_FOG']),
 ]
-MOD_MARKERS = ('ADVOPT_', 'TREEOPT_', 'TERRAINOPT_', 'CalcPrimaryProvinceOverlayPoint', 'PixelShaderLowSpecSharp')
+MOD_MARKERS = ('ADVOPT_', 'WATEROPT_', 'CalcWaterCheap', 'TREEOPT_', 'TERRAINOPT_', 'CalcPrimaryProvinceOverlayPoint', 'PixelShaderLowSpecSharp')
 
 def read(p):
     return open(p, 'rb').read().decode('utf-8', 'replace')
 
 def find_entry(cache, shader, effect, lowspec, want_marker, want_block=None):
-    for name in sorted(os.listdir(cache)):
+    # newest first: after a game patch the cache still holds the old version's entries
+    for name in sorted(os.listdir(cache), key=lambda n: -os.path.getmtime(os.path.join(cache, n))):
         if not name.endswith('.scache'):
             continue
         p = os.path.join(cache, name)

@@ -1,5 +1,5 @@
 # Better Water Without Advanced Shaders - modified copy of
-# game/gfx/FX/pdxwater.shader from CK3 1.19.0.6 (Scribe).
+# game/gfx/FX/pdxwater.shader from CK3 1.20.0.2 (Crozier).
 #
 # With Advanced Shaders off the ocean is drawn by Effect waterLowSpec: the colour map,
 # a shore fade and nothing else - and the shore fade alone costs a 9 tap heightmap
@@ -83,8 +83,8 @@ PixelShader =
 						float3 BorderColor;
 						float BorderPreLightingBlend;
 						float BorderPostLightingBlend;
-						GetProvinceOverlayAndBlend( Input.WorldSpacePos.xz, BorderColor, BorderPreLightingBlend, BorderPostLightingBlend );
-						GetBorderColorAndBlendGame( Input.WorldSpacePos.xz, Water.rgb, BorderColor, BorderPreLightingBlend, BorderPostLightingBlend );
+						GetProvinceOverlayAndBlend( Input.WorldSpacePos.xz, BorderColor, BorderPreLightingBlend, BorderPostLightingBlend, 0.0f );
+						GetBorderColorAndBlendGame( Input.WorldSpacePos.xz, Water.rgb, BorderColor, BorderPreLightingBlend, BorderPostLightingBlend, 0.0f );
 
 						// Don't draw too close to the shore to not duplicate the colors with stripes over the land.
 						float AccurateHeight = GetHeight( Input.WorldSpacePos.xz );

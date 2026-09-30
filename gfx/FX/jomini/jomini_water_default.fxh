@@ -1,5 +1,5 @@
 # Better Water Without Advanced Shaders - modified copy of
-# game/gfx/FX/jomini/jomini_water_default.fxh from CK3 1.19.0.6 (Scribe).
+# game/gfx/FX/jomini/jomini_water_default.fxh from CK3 1.20.0.2 (Crozier).
 # Changes vs vanilla:
 #   * new CalcWaterCheap( VS_OUTPUT_WATER ), appended after CalcWater( VS_OUTPUT_WATER ):
 #     waves, sun highlight and sky reflection for the low spec ocean and lakes.

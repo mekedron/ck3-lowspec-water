@@ -79,7 +79,7 @@ cache (expanded HLSL), swaps in this mod's code blocks and compiles them with DX
 
 ## Game version
 
-Built against 1.19.0.6 (Scribe). Both overrides replace the vanilla file wholesale,
+Built against 1.20.0.2 (Crozier). Both overrides replace the vanilla file wholesale,
 so after a patch run `tools/diff_vanilla.sh` and re-apply the banners onto the new
 vanilla copies. `jomini_water_default.fxh` is also included by the river shader, which
 is why the new function is appended and nothing existing is edited.
