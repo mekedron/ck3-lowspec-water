@@ -8,6 +8,10 @@ only its cheap parts, at 6 texture taps per pixel where vanilla low spec already
 
 <img src="thumbnail.png" alt="The North Sea with Advanced Shaders off: waves, a sun highlight and sky reflection" width="360">
 
+**All four in one:** Sharp Terrain, Real Snow, Better Water and Smooth Zoom Transitions
+also come as one mod, [All-in-One Map Pack Without Advanced Shaders](https://github.com/mekedron/ck3-lowspec-all-in-one) -
+optional, for the vanilla map, used instead of the separate mods.
+
 Independent of every other mod; pairs with
 [Sharp Terrain Without Advanced Shaders](https://github.com/mekedron/ck3-lowspec-terrain-fix)
 and its [Real Snow](https://github.com/mekedron/ck3-lowspec-real-snow) add-on.

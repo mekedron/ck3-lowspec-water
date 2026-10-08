@@ -8,6 +8,10 @@
 
 <img src="thumbnail.png" alt="Северное море с выключенными шейдерами: волны, солнечный блик и отражение неба" width="360">
 
+**Все четыре в одном:** Sharp Terrain, Real Snow, Better Water и Smooth Zoom Transitions
+есть и одним модом — [All-in-One Map Pack Without Advanced Shaders](https://github.com/mekedron/ck3-lowspec-all-in-one):
+необязательно, для ванильной карты, вместо отдельных модов.
+
 Не зависит от других модов; сочетается с
 [Sharp Terrain Without Advanced Shaders](https://github.com/mekedron/ck3-lowspec-terrain-fix)
 и его дополнением [Real Snow](https://github.com/mekedron/ck3-lowspec-real-snow).
