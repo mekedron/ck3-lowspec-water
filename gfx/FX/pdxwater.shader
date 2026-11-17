@@ -1,5 +1,5 @@
 # Better Water Without Advanced Shaders - modified copy of
-# game/gfx/FX/pdxwater.shader from CK3 1.20.0.2 (Crozier).
+# game/gfx/FX/pdxwater.shader from CK3 1.21.0 (Florin).
 #
 # With Advanced Shaders off the ocean is drawn by Effect waterLowSpec: the colour map,
 # a shore fade and nothing else - and the shore fade alone costs a 9 tap heightmap
@@ -23,6 +23,7 @@ Includes = {
 	"paper_transition.fxh"
 	"clouds.fxh"
 	"utility_game.fxh"
+	"flatmap.fxh"
 }
 
 PixelShader =
@@ -45,7 +46,6 @@ PixelShader =
 		SampleModeU = "Clamp"
 		SampleModeV = "Clamp"
 	}
-
 	TextureSampler ShadowMap
 	{
 		Ref = PdxShadowmap
@@ -99,8 +99,9 @@ PixelShader =
 
 				if ( FlatMapLerp > 0.001f )
 				{
-					float3 FlatMap = PdxTex2D( FlatMapTexture, Input.UV01 ).rgb;
-					FlatMap = ApplyFlatMapBrightnessAdjustment( FlatMap );
+					float4 FlatMapSample = PdxTex2D( FlatMapTexture, Input.UV01 );
+					float3 FlatMap = ApplyFlatMapBrightnessAdjustment( FlatMapSample.rgb );
+					ApplyGoldenFlatMap( FlatMap, FlatMapSample.a, Input.WorldSpacePos );
 					float Blend = CalculatePaperTransitionBlend( Input.UV01, FlatMapLerp );
 					Water.rgb = lerp( Water.rgb, FlatMap, Blend );
 				}

@@ -8,7 +8,7 @@
 
 <img src="thumbnail.png" alt="Северное море с выключенными шейдерами: волны, солнечный блик и отражение неба" width="360">
 
-**Все четыре в одном:** Sharp Terrain, Real Snow, Better Water и Smooth Zoom Transitions
+**Все пять в одном:** Sharp Terrain, Real Snow, Better Water, Smooth Zoom Transitions и Unit Coats of Arms
 есть и одним модом — [All-in-One Map Pack Without Advanced Shaders](https://github.com/mekedron/ck3-lowspec-all-in-one):
 необязательно, для ванильной карты, вместо отдельных модов.
 
@@ -83,7 +83,7 @@ cubemap 1) против 11 у ванильного low-spec, плюс матем
 
 ## Версия игры
 
-Собран под 1.20.0.2 (Crozier). Оба переопределения заменяют ванильный файл целиком,
+Собран под 1.21.0 (Florin). Оба переопределения заменяют ванильный файл целиком,
 поэтому после патча запустите `tools/diff_vanilla.sh` и перенесите баннеры на новые
 ванильные копии. `jomini_water_default.fxh` подключается и шейдером рек, поэтому новая
 функция добавлена в конец, а существующее не правилось.

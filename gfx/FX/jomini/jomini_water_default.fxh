@@ -1,5 +1,5 @@
 # Better Water Without Advanced Shaders - modified copy of
-# game/gfx/FX/jomini/jomini_water_default.fxh from CK3 1.20.0.2 (Crozier).
+# game/gfx/FX/jomini/jomini_water_default.fxh from CK3 1.21.0 (Florin).
 # Changes vs vanilla:
 #   * new CalcWaterCheap( VS_OUTPUT_WATER ), appended after CalcWater( VS_OUTPUT_WATER ):
 #     waves, sun highlight and sky reflection for the low spec ocean and lakes.
@@ -510,7 +510,11 @@ PixelShader =
 		SWaterOutput CalcWater( in SWaterParameters Input, float ShadowTerm )
 		{
 			float4 WaterColorAndSpec = PdxTex2D( WaterColorTexture, Input._WorldUV );
-			float GlossMap = WaterColorAndSpec.a;
+			#if defined( RIVER )
+				float GlossMap = 0.5f;
+			#else
+				float GlossMap = WaterColorAndSpec.a;
+			#endif
 
 			float3 ToCamera = CameraPosition.xyz - Input._WorldSpacePos;
 			float3 ToCameraDir = normalize( ToCamera );

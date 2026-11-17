@@ -8,7 +8,7 @@ only its cheap parts, at 6 texture taps per pixel where vanilla low spec already
 
 <img src="thumbnail.png" alt="The North Sea with Advanced Shaders off: waves, a sun highlight and sky reflection" width="360">
 
-**All four in one:** Sharp Terrain, Real Snow, Better Water and Smooth Zoom Transitions
+**All five in one:** Sharp Terrain, Real Snow, Better Water, Smooth Zoom Transitions and Unit Coats of Arms
 also come as one mod, [All-in-One Map Pack Without Advanced Shaders](https://github.com/mekedron/ck3-lowspec-all-in-one) -
 optional, for the vanilla map, used instead of the separate mods.
 
@@ -83,7 +83,7 @@ cache (expanded HLSL), swaps in this mod's code blocks and compiles them with DX
 
 ## Game version
 
-Built against 1.20.0.2 (Crozier). Both overrides replace the vanilla file wholesale,
+Built against 1.21.0 (Florin). Both overrides replace the vanilla file wholesale,
 so after a patch run `tools/diff_vanilla.sh` and re-apply the banners onto the new
 vanilla copies. `jomini_water_default.fxh` is also included by the river shader, which
 is why the new function is appended and nothing existing is edited.
